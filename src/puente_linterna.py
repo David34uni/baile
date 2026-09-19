@@ -1,9 +1,6 @@
 import itertools
 import SimpleSearch as sp
 
-# ------------------------------------------------------------------
-# 1. Función Sucesor
-# ------------------------------------------------------------------
 def crear_sucesor(todas_las_personas):
     """
     Retorna la función sucesor adaptada a un conjunto particular de personas.
@@ -13,7 +10,6 @@ def crear_sucesor(todas_las_personas):
         sucesores = []
         
         if pos_linterna == 0:
-            # Linterna en la izquierda: 1 o 2 personas cruzan a la derecha
             for r in (1, 2):
                 for grupo in itertools.combinations(personas_izq, r):
                     grupo_set = set(grupo)
@@ -31,7 +27,6 @@ def crear_sucesor(todas_las_personas):
                     )
                     sucesores.append(hijo)
         else:
-            # Linterna en la derecha: 1 o 2 personas regresan a la izquierda
             personas_der = set(todas_las_personas) - set(personas_izq)
             for r in (1, 2):
                 for grupo in itertools.combinations(personas_der, r):
@@ -53,16 +48,10 @@ def crear_sucesor(todas_las_personas):
 
     return sucesor
 
-# ------------------------------------------------------------------
-# 2. Condición de Meta
-# ------------------------------------------------------------------
 def meta(nodo, goal_state=None):
     personas_izq, pos_linterna = nodo.state
     return len(personas_izq) == 0 and pos_linterna == 1
 
-# ------------------------------------------------------------------
-# 3. Funciones Heurísticas
-# ------------------------------------------------------------------
 def h1_maximo(nodo, goal_state=None):
     personas_izq, _ = nodo.state
     return max(personas_izq) if personas_izq else 0
